@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios";
 import { Body, Controller, Get } from "@nestjs/common";
-import { PokemonUsecase } from "./pokemon.usecase";
-import { PokemonService } from "./pokemon.service";
+import { PokemonUsecase } from "../usecases/pokemon.usecase";
+import { PokemonService } from "../services/pokemon.service";
 
 type PokeInfo = {
     name: string,
