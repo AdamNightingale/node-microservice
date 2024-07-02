@@ -1,11 +1,19 @@
+import { Pokemon } from "../../types";
 import { PokemonService } from "../services/pokemon.service";
 
 export class PokemonUsecase {
-    constructor(private name: string, private id: number, private types: string[], private pokeService:PokemonService) {}
+    constructor(private name: string, private pokeService: PokemonService) {}
 
-    createPokemon() {
-        const counterTypes = this.pokeService.getCounterTypes(this.types);
+    async createPokemon(): Promise<Pokemon> {
+        const pokeInfo = await this.pokeService.getPokeInfo(this.name);
+        const counterTypes = this.pokeService.getCounterTypes(pokeInfo.types);
+        const pokemon: Pokemon = {
+            id: pokeInfo.id,
+            name: pokeInfo.name,
+            types: pokeInfo.types,
+            counters: counterTypes,
+        }
 
-        return {name: this.name, id: this.id, types: this.types, counterTypes}
+        return pokemon;
     }
 }

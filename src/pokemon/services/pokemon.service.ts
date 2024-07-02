@@ -1,6 +1,19 @@
+import { HttpService } from "@nestjs/axios";
 import { PokemonRepository } from "../repositories/pokemon.repository";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class PokemonService implements PokemonRepository{
+    constructor(private http: HttpService) {}
+
+    async getPokeInfo(name: string) {
+        const pokeInfo = await this.http.axiosRef.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+        const pokeInfos = pokeInfo.data;
+        const types = this.parseTypes(pokeInfos.types);
+
+        return { id: pokeInfos.id, name: pokeInfos.name, types }
+    }
+
     getCounterTypes(types: string[]): string[] {
         if(types.length == 1) {
             return this.getCounter(types[0]);
@@ -16,6 +29,15 @@ export class PokemonService implements PokemonRepository{
         });
         
         return counters;
+    }
+
+    private parseTypes(types) {
+        const type1 = types[0].type.name;
+        const type2 = types[1]?.type.name;
+        let type = [type1];
+        if (type2) type = [type1, type2];
+
+        return type;
     }
 
     private getCounter(type: string): string[] {
