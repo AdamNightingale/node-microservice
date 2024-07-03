@@ -5,9 +5,7 @@ import { PokeInfo } from 'src/types';
 
 @Controller()
 export class PokemonController {
-    constructor(
-        private pokeService: PokemonService,
-    ) {}
+    constructor(private pokeService: PokemonService) {}
 
     @Get('/pokemon')
     async getPokemon(@Body() body: PokeInfo) {

@@ -3,7 +3,7 @@ export type Pokemon = {
     name: string;
     types: string[];
     counters: string[];
-}
+};
 
 export type PokeInfo = {
     nameOrId: string;

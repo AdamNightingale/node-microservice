@@ -1,10 +1,10 @@
-import { HttpService } from "@nestjs/axios";
-import { PokemonRepository } from "../repositories/pokemon.repository";
-import { Injectable } from "@nestjs/common";
-import { PokemonNotFound } from "../errors/errors";
+import { HttpService } from '@nestjs/axios';
+import { PokemonRepository } from '../repositories/pokemon.repository';
+import { Injectable } from '@nestjs/common';
+import { PokemonNotFound } from '../errors/errors';
 
 @Injectable()
-export class PokemonService implements PokemonRepository{
+export class PokemonService implements PokemonRepository {
     constructor(private http: HttpService) {}
 
     async getBasePokemon(name: string) {
@@ -15,10 +15,9 @@ export class PokemonService implements PokemonRepository{
     }
 
     getAllCounters(types: string[]): string[] {
-        if(types.length == 1) return this.getCounters(types[0]);
-
+        if (types.length == 1) return this.getCounters(types[0]);
         const allCounters = types.flatMap(this.getCounters);
-        
+
         return allCounters;
     }
 
@@ -41,81 +40,82 @@ export class PokemonService implements PokemonRepository{
 
     private getCounters(type: string): string[] {
         let counters;
-            switch (type) {
-                case "normal":
-                    counters = ["fighting"];
-                    break;
-    
-                case "fire":
-                    counters = ["water","ground","rock"];
-                    break;
-    
-                case "water":
-                    counters = ["grass","electric"];
-                    break;
-    
-                case "grass":
-                    counters = ["fire","ice","poison","flying","bug"];
-                    break;
-    
-                case "electric":
-                    counters = ["ground"];
-                    break;
-    
-                case "ice":
-                    counters = ["fire","fighting","rock","steel"];
-                    break;
-    
-                case "fighting":
-                    counters = ["flying","psychic","fairy"];
-                    break;
-    
-                case "poison":
-                    counters = ["ground","psychic"];
-                    break;
-    
-                case "ground":
-                    counters = ["water","grass","ice"];
-                    break;
-    
-                case "flying":
-                    counters = ["electric","ice","rock"];
-                    break;
-    
-                case "psychic":
-                    counters = ["bug","ghost","dark"];
-                    break;
-    
-                case "bug":
-                    counters = ["flying", "rock","fire"];
-                    break;
-    
-                case "rock":
-                    counters = ["water","grass","fighting","ground","steel"];
-                    break;
-    
-                case "ghost":
-                    counters = ["ghost","dark"];
-                    break;
-    
-                case "dragon":
-                    counters = ["ice","dragon","fairy"];
-                    break;
-    
-                case "dark":
-                    counters = ["fighting","bug","fairy"];
-                    break;
-    
-                case "steel":
-                    counters = ["fire","fighting","ground"];
-                    break;
-    
-                case "fairy":
-                    counters = ["poison","steel"];
-                    break;
-    
-                default: throw new Error("invalid type");
-            }
-            return counters
+        switch (type) {
+            case 'normal':
+                counters = ['fighting'];
+                break;
+
+            case 'fire':
+                counters = ['water', 'ground', 'rock'];
+                break;
+
+            case 'water':
+                counters = ['grass', 'electric'];
+                break;
+
+            case 'grass':
+                counters = ['fire', 'ice', 'poison', 'flying', 'bug'];
+                break;
+
+            case 'electric':
+                counters = ['ground'];
+                break;
+
+            case 'ice':
+                counters = ['fire', 'fighting', 'rock', 'steel'];
+                break;
+
+            case 'fighting':
+                counters = ['flying', 'psychic', 'fairy'];
+                break;
+
+            case 'poison':
+                counters = ['ground', 'psychic'];
+                break;
+
+            case 'ground':
+                counters = ['water', 'grass', 'ice'];
+                break;
+
+            case 'flying':
+                counters = ['electric', 'ice', 'rock'];
+                break;
+
+            case 'psychic':
+                counters = ['bug', 'ghost', 'dark'];
+                break;
+
+            case 'bug':
+                counters = ['flying', 'rock', 'fire'];
+                break;
+
+            case 'rock':
+                counters = ['water', 'grass', 'fighting', 'ground', 'steel'];
+                break;
+
+            case 'ghost':
+                counters = ['ghost', 'dark'];
+                break;
+
+            case 'dragon':
+                counters = ['ice', 'dragon', 'fairy'];
+                break;
+
+            case 'dark':
+                counters = ['fighting', 'bug', 'fairy'];
+                break;
+
+            case 'steel':
+                counters = ['fire', 'fighting', 'ground'];
+                break;
+
+            case 'fairy':
+                counters = ['poison', 'steel'];
+                break;
+
+            default:
+                throw new Error('invalid type');
+        }
+        return counters;
     }
 }
