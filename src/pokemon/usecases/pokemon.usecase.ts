@@ -6,7 +6,7 @@ export class PokemonUsecase {
 
     async createPokemon(): Promise<Pokemon> {
         const basePokemon = await this.pokeService.getBasePokemon(this.name);
-        const counterTypes = this.pokeService.getCounterTypes(basePokemon.types);
+        const counterTypes = this.pokeService.getAllCounters(basePokemon.types);
         const pokemon: Pokemon = {
             id: basePokemon.id,
             name: basePokemon.name,

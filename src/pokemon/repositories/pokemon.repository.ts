@@ -1,3 +1,3 @@
 export interface PokemonRepository {
-    getCounterTypes(types: string[]): string[];
+    getAllCounters(types: string[]): string[];
 }

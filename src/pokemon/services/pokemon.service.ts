@@ -14,21 +14,12 @@ export class PokemonService implements PokemonRepository{
         return { id: pokeInfos.id, name: pokeInfos.name, types };
     }
 
-    getCounterTypes(types: string[]): string[] {
-        if(types.length == 1) {
-            return this.getCounter(types[0]);
-        }
+    getAllCounters(types: string[]): string[] {
+        if(types.length == 1) return this.getCounters(types[0]);
 
-        let counters;
-        types.map((type) => {
-            let typeCounter = this.getCounter(type);
-            if(counters !== undefined) typeCounter.forEach((counter) => {
-                counters.push(counter);
-            });
-            else counters = typeCounter;
-        });
+        const allCounters = types.flatMap(this.getCounters);
         
-        return counters;
+        return allCounters;
     }
 
     private async getPokeInfo(name: string) {
@@ -48,7 +39,7 @@ export class PokemonService implements PokemonRepository{
         return type;
     }
 
-    private getCounter(type: string): string[] {
+    private getCounters(type: string): string[] {
         let counters;
             switch (type) {
                 case "normal":
